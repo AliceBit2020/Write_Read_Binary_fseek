@@ -21,14 +21,30 @@ struct StudentPtr
 	double GPA;  ////8b
 };
 
+void WriteStudentPtr(FILE* f, const StudentPtr& st)
+{
+	int len;
+
+	len = strlen(st.name) + 1;///   '\0'
+	fwrite(&len, sizeof(int), 1, f);
+	fwrite(st.name, sizeof(char), len, f);
+
+	len = strlen(st.surname) + 1;
+	fwrite(&len, sizeof(int), 1, f);
+	fwrite(st.surname, sizeof(char), len, f);
+
+	fwrite(&st.age, sizeof(int), 1, f);
+	fwrite(&st.GPA, sizeof(double), 1, f);
+}
+
 void main()
 {
 	/*Student st1;
 	strcpy(st1.name, "Olga");*/
 
 
-	//StudentPtr st2;
-	//st2.name = new char[20] {"Olena"};
+	StudentPtr st2;
+	st2.name = new char[20] {"Olena"};
 
 	//cout << st1.name << endl;
 	//cout << st2.name << endl;
@@ -39,25 +55,25 @@ void main()
 	///////////////////////////////////////////////////////////////////////////////
 
 
-	//const char* filepath = "1.txt";
+	const char* filepath = "1.txt";
 
-	//FILE * f1 = nullptr;
-	//fopen_s(&f1, filepath, "wb");
+	FILE * f1 = nullptr;
+	fopen_s(&f1, filepath, "wb");
 
-	//int a =5;
-	//double d = 40.5;
-	//Student st;
-	//st.age = 20;
-	//st.GPA = 11.5;
-	//strcpy_s(st.name, 20, "Ivan");
-	//strcpy_s(st.surname, 20, "Ivanov");
+	int a =5;
+	double d = 40.5;
+	Student st;
+	st.age = 20;
+	st.GPA = 11.5;
+	strcpy_s(st.name, 20, "Ivan");
+	strcpy_s(st.surname, 20, "Ivanov");
 
 
 
-	//fwrite(&a, sizeof(int),1, f1);/////  передаємо зміну, її розмір, кількість,куди f1
-	//fwrite(&d, sizeof(double), 1, f1);
-	//fwrite(&st, sizeof(Student), 1, f1);
-	//fclose(f1);
+	fwrite(&a, sizeof(int),1, f1);/////  передаємо зміну, її розмір, кількість,куди f1
+	fwrite(&d, sizeof(double), 1, f1);
+	fwrite(&st, sizeof(Student), 1, f1);
+	fclose(f1);
 
 
 	/////1.   В якому порядку записали так і зчитуємо, прямий доступ/послідовний доступ
@@ -135,9 +151,3 @@ void main()
 
 }
 
-
-//double d3;
-//fseek(f3, -9, SEEK_CUR);
-//fread(&d3, sizeof(double), 1, f3);
-//cout << d3 << endl;
-//fclose(f3);
