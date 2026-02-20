@@ -147,7 +147,7 @@ void main()
 	fclose(f3);
 	
 
-
+	Student* arrSt = new Student[15];
 
 }
 
